@@ -15,8 +15,6 @@ namespace _2_Controller_Attempt
         SpriteFont font;
         public Player player, player1, player2, player3, player4;
 
-        public List<Player> playerList = new List<Player>();
-
         PlayerIndex playerIndex;
 
         public Game1()
@@ -38,14 +36,16 @@ namespace _2_Controller_Attempt
             font = Content.Load<SpriteFont>("SystemFont");
 
             player1 = new Player(this);
-            player2 = new Player(this);
-            player3 = new Player(this);
-            player4 = new Player(this);
+            player1.Name = "Player1";
 
-            playerList.Add(player1);
-            playerList.Add(player2);
-            playerList.Add(player3);
-            playerList.Add(player4);
+            player2 = new Player(this);
+            player2.Name = "Player2";
+
+            player3 = new Player(this);
+            player3.Name = "Player3";
+
+            player4 = new Player(this);
+            player4.Name = "Player3";
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
         }
