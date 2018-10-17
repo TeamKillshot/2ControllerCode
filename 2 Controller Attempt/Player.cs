@@ -15,15 +15,14 @@ namespace _2_Controller_Attempt
         #region Properties and Variables
 
         public PlayerIndex index;
+        public Vector2 previousPosition;
+        public Vector2 currentPosition;
 
         int playerNumber = 0;
 
         public string Name { get; set; }
 
         public List<Player> playerList = new List<Player>();
-
-        public Vector2 previousPosition;
-        public Vector2 currentPosition;
 
         Player player;
 
@@ -37,12 +36,13 @@ namespace _2_Controller_Attempt
             _game.Components.Add(this);
         }
 
-        public void GetPlayerPosition(Vector2 pos)
-        {
-            currentPosition = new Vector2(25, 25);
+        public void GetPlayerPosition(Player player)
+        {            
+            player.currentPosition = new Vector2(25, 25);
+            player.previousPosition = player.currentPosition;
         }
 
-        public void GetPlayerIndex(Player tempPlayer)
+        public void GetPlayerIndex(Player player)
         {
             #region Check GameStates
             GamePadState state = GamePad.GetState(PlayerIndex.One);
@@ -51,64 +51,53 @@ namespace _2_Controller_Attempt
             GamePadState state4 = GamePad.GetState(PlayerIndex.Four);
             #endregion
 
-            if (tempPlayer.Name == "Player1" && state.IsConnected)
+            if (player.Name == "Player1" && state.IsConnected)
             {
-                tempPlayer.index = PlayerIndex.One;
-                playerList.Add(tempPlayer);
+                player.index = PlayerIndex.One;
             }
-            else if(tempPlayer.Name == "Player2" && state2.IsConnected)
+            else if(player.Name == "Player2" && state2.IsConnected)
             {
-                tempPlayer.index = PlayerIndex.Two;
-                playerList.Add(tempPlayer);
+                player.index = PlayerIndex.Two;
             }
-            else if(tempPlayer.Name == "Player3" && state.IsConnected)
+            else if(player.Name == "Players3" && !state.IsConnected)
             {
-                tempPlayer.index = PlayerIndex.Three;
-                playerList.Add(tempPlayer);
+                player.index = PlayerIndex.Three;
             }
-            else if (tempPlayer.Name == "Player4" && state.IsConnected)
+            else if (player.Name == "Player4" && !state.IsConnected)
             {
-                tempPlayer.index = PlayerIndex.Four;
-                playerList.Add(tempPlayer);
+                player.index = PlayerIndex.Four;
             }
         }
 
-        public void Update(GameTime gameTime, PlayerIndex player)
+        public void Update(GameTime gameTime, Player player)
         {
-            previousPosition = currentPosition;
-
             #region Player1 Controller
-            foreach (Player players in playerList)
-            {
-                if (InputManager.IsButtonPressed(Buttons.DPadRight, players.index))
+                if (player != null)
                 {
-                    players.currentPosition.X += speed;
-                }
-                if (InputManager.IsButtonPressed(Buttons.DPadLeft, players.index))
-                {
-                    players.currentPosition.X -= speed;
-                }
-                if (InputManager.IsButtonPressed(Buttons.DPadDown, players.index))
-                {
-                    players.currentPosition.Y += speed;
-                }
-                if (InputManager.IsButtonPressed(Buttons.DPadUp, players.index))
-                {
-                    players.currentPosition.Y -= speed;
-                }
-            }
-            
+                    if (InputManager.IsButtonPressed(Buttons.DPadRight, player.index))
+                    {
+                        player.currentPosition.X += speed;
+                    }
+                    if (InputManager.IsButtonPressed(Buttons.DPadLeft, player.index))
+                    {
+                        player.currentPosition.X -= speed;
+                    }
+                    if (InputManager.IsButtonPressed(Buttons.DPadDown, player.index))
+                    {
+                        player.currentPosition.Y += speed;
+                    }
+                    if (InputManager.IsButtonPressed(Buttons.DPadUp, player.index))
+                    {
+                        player.currentPosition.Y -= speed;
+                    }
+                }           
                 #endregion
         }
 
-        public void Draw(GameTime gameTime, SpriteFont font, SpriteBatch _spritebatch)
+        public void Draw(GameTime gameTime, SpriteFont font, SpriteBatch _spritebatch, Player player)
         {
             _spritebatch.Begin();
-
-            foreach (Player player in playerList)
-            {
-                _spritebatch.DrawString(font, player.Name, currentPosition, Color.Red);
-            }
+            _spritebatch.DrawString(font, "Player" + player.index.ToString(), currentPosition, Color.Red);
             _spritebatch.End();
         }
     }
