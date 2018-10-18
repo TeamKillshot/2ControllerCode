@@ -94,11 +94,11 @@ namespace _2_Controller_Attempt
                 #endregion
         }
 
-        public void Draw(GameTime gameTime, SpriteFont font, SpriteBatch _spritebatch, Player player)
+        public void Draw(GameTime gameTime, SpriteFont font, SpriteBatch spritebatch, Player player)
         {
-            _spritebatch.Begin();
-            _spritebatch.DrawString(font, "Player" + player.index.ToString(), currentPosition, Color.Red);
-            _spritebatch.End();
+            spritebatch.Begin();
+            spritebatch.DrawString(font, "Player" + player.index.ToString(), currentPosition, Color.Red);
+            spritebatch.End();
         }
     }
 }

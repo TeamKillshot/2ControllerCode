@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using FarseerPhysics;
 
 namespace _2_Controller_Attempt
 {
@@ -39,23 +40,15 @@ namespace _2_Controller_Attempt
 
             player1 = new Player(this);
             player1.Name = "Player1";
-            //player1.GetPlayerPosition(player1);
-            //player.GetPlayerIndex(player1);
 
             player2 = new Player(this);
             player2.Name = "Player2";
-            //player2.GetPlayerPosition(player2);
-            //player.GetPlayerIndex(player2);
 
             player3 = new Player(this);
             player3.Name = "Player3";
-            //player3.GetPlayerPosition(player3);
-            //player.GetPlayerIndex(player3);
 
             player4 = new Player(this);
             player4.Name = "Player4";
-            //player4.GetPlayerPosition(player4);
-            //player.GetPlayerIndex(player4);
 
             playersList.Add(player1);
             playersList.Add(player2);
